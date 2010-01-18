@@ -4,6 +4,7 @@ Given a google query with the -q option, it launches it to google and returns th
 """
 import simplejson
 import urllib
+import logging
 import urllib2
 
 
@@ -18,7 +19,7 @@ def launch_query(query, start):
     baseurl = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s'
     parameters = {'q': query, 'start': start}
     queryurl = baseurl % urllib.urlencode(parameters)
-#    print queryurl
+    logging.debug(queryurl)
 
     opener = urllib2.build_opener()
     f = opener.open(queryurl)
@@ -33,9 +34,12 @@ def launch_query(query, start):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description = __doc__)
-    parser.add_argument('--query', metavar='query', type=str, nargs='+')
+    parser.add_argument('--query', metavar='query', type=str, nargs='+', help='query')
+    parser.add_argument('-d', '--debug', action='store_true', help='print debugging messages')
 
     args = parser.parse_args()
+    if args.debug is True:
+        logging.basicConfig(level=logging.DEBUG)
     query = args.query
     print query
     launch_query(query, 0)
