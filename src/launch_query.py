@@ -28,6 +28,7 @@ def launch_query(query, start):
     for result in response['responseData']['results']:
         print result['title']
 
+    return response
 
 
 
@@ -42,6 +43,6 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.DEBUG)
     query = args.query
     print query
-    launch_query(query, 0)
-    launch_query(query, 4)
+    results1 = launch_query(query, 0)
+    results2 = launch_query(query, 4)
 
