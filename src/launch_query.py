@@ -35,7 +35,7 @@ def launch_query(query, start):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description = __doc__)
-    parser.add_argument('--query', metavar='query', type=str, nargs='+', help='query')
+    parser.add_argument('-q', '--query', metavar='query', type=str, nargs='+', help='query', required=True)
     parser.add_argument('-d', '--debug', action='store_true', help='print debugging messages')
 
     args = parser.parse_args()
