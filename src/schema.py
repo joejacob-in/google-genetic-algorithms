@@ -17,8 +17,9 @@ class Query(Entity):
     using_options(tablename = 'queries')
     
     query = Field(Text, primary_key=True)
+    urls = OneToMany(Url)
     
-    @slug_to_lower(query) 
+    @check_querytable_inputs(query) 
     def __init__(self, query):
         """
         all queries are converted to lowercase
@@ -26,6 +27,16 @@ class Query(Entity):
         self.query = query.lower()
     
 
+def Url(Entity):
+    """
+    every url visited is stored
+
+    I am still not sure on how 'score' is calculated, maybe the number of mp3s in the page
+    """
+    using_options(tablename = 'urls')
+
+    url = Field(Text, primary_key=True)
+    score = Field(Integer)
 
 
 
