@@ -7,6 +7,8 @@ import urllib
 import logging
 import urllib2
 
+# Fancy output
+from TerminalColor import TerminalController    
 
 
 def launch_query(query, start):
@@ -25,11 +27,17 @@ def launch_query(query, start):
     f = opener.open(queryurl)
 
     response = simplejson.load(f)
-    for result in response['responseData']['results']:
-        print result['title']
+#    for result in response['responseData']['results']:
+#        print result['title']
 
     return response
 
+def print_fancy_results(response):
+    term = TerminalController()
+    for result in response['responseData']['results']:
+        output = result['title'].replace("<b>", "${BOLD}").replace("</b>", "${NORMAL}")
+        print term.render("%s (%s)" % (output,result['url']))
+        
 
 
 if __name__ == '__main__':
@@ -43,6 +51,6 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.DEBUG)
     query = args.query
     print query
-    results1 = launch_query(query, 0)
-    results2 = launch_query(query, 4)
+    print_fancy_results(launch_query(query, 0))
+    print_fancy_results(launch_query(query, 4))
 
