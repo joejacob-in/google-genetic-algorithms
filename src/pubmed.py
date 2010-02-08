@@ -35,6 +35,7 @@ def pubmed(query):
     (webenv, querykey) = (search_results["WebEnv"], search_results["QueryKey"])
 
     fetch_handle = Entrez.efetch(db="pubmed", webenv=webenv, query_key=querykey, 
+    # docsum, brief, abstract, citation, medline, asn.1, mlasn1,
                         retmax=10, rettype="docsum", mode="text") 
     pretty_print(fetch_handle.readlines())
 
@@ -47,7 +48,7 @@ def pretty_print(reporttxt):
     for line in reporttxt:
 #        print line
         if re.match(' \w+', line):
-            output += "${RED}%s${NORMAL}" % line
+            output += "${BOLD}%s${NORMAL}" % line
         else:
             output += line
     print term.render(output)
