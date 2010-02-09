@@ -5,6 +5,7 @@
 import ConfigParser
 import logging
 import mechanize
+import pdb
 
 bonzosurl = "http://www.bonzoscreek.com/forum"
 
@@ -18,11 +19,25 @@ def read_config():
     return username, password
 
 
-def browse(username, password):
+def bonzo_connect(username, password):
+    logging.debug("Bonzo's power!")
     br = mechanize.Browser()
     br.open(bonzosurl) 
+    logging.debug(br.title())
 
+    # select the login form and fill it
+    br.select_form(nr=0)
+    br['username'] = username
+    br['password'] = password
+    r1 = br.submit()
+    pdb.set_trace()
+
+    return br
 
 if __name__ == '__main__':
-    pass
+    try:
+        (username, password) = read_config()
+    except ConfigParser.NoSectionError:
+        print 'no config file present'
+    br = bonzo_connect(username, password)
 
