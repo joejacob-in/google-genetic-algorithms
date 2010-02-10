@@ -20,6 +20,7 @@ from Bio import Entrez
 from TerminalColor import TerminalController
 import logging
 import re
+import html2text
 
 Entrez.email = youremail
 
@@ -52,7 +53,7 @@ def pretty_print(reporttxt):
         else:
             output += line
     print term.render(output)
-#    print output
+#    html2text.html2text(reporttxt)
 
 
 if __name__ == '__main__':
