@@ -6,6 +6,7 @@ import ConfigParser
 import logging
 import mechanize
 import pdb
+import html2text
 
 bonzosurl = "http://www.bonzoscreek.com/forum"
 
@@ -29,9 +30,10 @@ def bonzo_connect(username, password):
     br.select_form(nr=0)
     br['username'] = username
     br['password'] = password
-    r1 = br.submit()
-    pdb.set_trace()
-
+#    r1 = br.submit()
+##    pdb.set_trace()
+#    html = br.response().read()
+#    print html2text.html2text(html)
     return br
 
 if __name__ == '__main__':
