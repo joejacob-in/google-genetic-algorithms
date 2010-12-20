@@ -33,15 +33,18 @@ def eval_func(chromosome):
     >>> import random
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)]
     """
-    print "CHROMOSOME:", chromosome
-    chromosome = ''.join(chromosome)
-    chromosome = notalpha_regex.sub(' ', chromosome)
-##    print chromosome
+#    print "CHROMOSOME:", chromosome.genomeList, 
+    print "CHROMOSOME:",
+    genotype = [chr(x) for x in chromosome.genomeList]
+    genotype = ''.join(genotype)
+    genotype = notalpha_regex.sub(' ', genotype)
+    print genotype,
 #    results = launch_query(chromosome)
 ##    print results
 ##    print_fancy_results(results)
 
-    score = random.randrange(100)
+    score = len(re.findall('[\w ]', genotype))
+    print score
 
 #    if not results['responseData']['cursor'].has_key('estimatedResultCount'):
 #        score = 0
@@ -55,9 +58,13 @@ def eval_func(chromosome):
 
 def run():
     """
+    run the pipeline
     """
-    genome = G1DList.G1DList(20)
+    genome = G1DList.G1DList(200)
     genome.evaluator.set(eval_func)
+    genome.setParams(rangemin=0, rangemax=255)
+    genome.initialize()
+#    print genome
     ga = GSimpleGA.GSimpleGA(genome)
     ga.evolve(freq_stats=10)
     print ga.bestIndividual()
