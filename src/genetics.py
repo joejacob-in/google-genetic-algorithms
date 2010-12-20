@@ -11,12 +11,16 @@ from launch_query import launch_query, print_fancy_results
 import random
 import re
 
+debug = False
+
 # define lower and upper limits for Ascii chars. Extreme values are 0, 255
-ascii_start = 0
-ascii_stop = 255
+rangemin = 0
+rangemax = 255
 
 # other parameters
 seq_length = 500
+ngenerations = 10
+
 
 
 notalpha_regex = re.compile('\W')
@@ -39,18 +43,19 @@ def eval_func(chromosome):
     genotype = ''.join(genotype)
     genotype = notalpha_regex.sub(' ', genotype)
     print genotype,
-#    results = launch_query(chromosome)
 ##    print results
 ##    print_fancy_results(results)
+    if debug:
+        score = len(re.findall('[\w ]', genotype))
+    else:
+        results = launch_query(genotype)
 
-    score = len(re.findall('[\w ]', genotype))
+        if not results['responseData']['cursor'].has_key('estimatedResultCount'):
+            score = 0
+        else:
+            score = int(results['responseData']['cursor']['estimatedResultCount'])
     print score
 
-#    if not results['responseData']['cursor'].has_key('estimatedResultCount'):
-#        score = 0
-#    else:
-#        score = results['responseData']['cursor']['estimatedResultCount']
-#
 #    print chromosome
 #    print score
     return score
@@ -60,12 +65,13 @@ def run():
     """
     run the pipeline
     """
-    genome = G1DList.G1DList(200)
+    genome = G1DList.G1DList(seq_length)
     genome.evaluator.set(eval_func)
-    genome.setParams(rangemin=0, rangemax=255)
+    genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
 #    print genome
     ga = GSimpleGA.GSimpleGA(genome)
+    ga.setGenerations(ngenerations)
     ga.evolve(freq_stats=10)
     print ga.bestIndividual()
 
