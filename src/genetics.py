@@ -10,6 +10,7 @@ from pyevolve import G1DList
 from launch_query import launch_query, print_fancy_results
 import random
 import re
+import time
 
 debug = False
 
@@ -49,6 +50,7 @@ def eval_func(chromosome):
         score = len(re.findall('[\w ]', genotype))
     else:
         results = launch_query(genotype)
+        time.sleep(2)
 
         if not results['responseData']['cursor'].has_key('estimatedResultCount'):
             score = 0
