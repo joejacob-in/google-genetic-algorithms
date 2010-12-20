@@ -11,7 +11,7 @@ import urllib2
 from TerminalColor import TerminalController    
 
 
-def launch_query(query, start):
+def launch_query(query, start=0):
     """
     Execute a query on google, getting exactly 4 results.
     
