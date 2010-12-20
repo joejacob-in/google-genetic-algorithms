@@ -27,6 +27,7 @@ def launch_query(query, start):
     f = opener.open(queryurl)
 
     response = simplejson.load(f)
+#    print response
 #    for result in response['responseData']['results']:
 #        print result['title']
 
