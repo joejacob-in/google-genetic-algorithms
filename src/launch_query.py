@@ -10,6 +10,9 @@ import urllib2
 # Fancy output
 from TerminalColor import TerminalController    
 
+# read the google api key
+configfile = open('configfile.txt', 'r')
+key = configfile.read().strip()
 
 def launch_query(query, start=0):
     """
@@ -19,6 +22,7 @@ def launch_query(query, start=0):
     To get more results for a query, you must launch this function multiple times changing the 'start' parameters.
     """
     baseurl = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s'
+#    parameters = {'q': query, 'start': start, 'key': key}
     parameters = {'q': query, 'start': start}
     queryurl = baseurl % urllib.urlencode(parameters)
     logging.debug(queryurl)
