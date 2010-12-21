@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: google query returning NoneType
+desc: I suspect it happens when I execute too many queries. Investigate..
+type: :bugfix
+component: bugs
+release: 
+reporter: Giovanni DallOlio <dalloliogm@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2010-12-21 23:16:24.004355 Z
+references: []
+
+id: a6a817f33c679b6cc982686af4c31df94b1af4a4
+log_events: 
+- - 2010-12-21 23:16:24.788185 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - created
+  - ""
