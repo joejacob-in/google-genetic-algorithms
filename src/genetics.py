@@ -33,9 +33,9 @@ def log():
     """
     now = datetime.datetime.now()
     logfilename = 'results/log_%s_%s_%s_%s:%s.txt' % (now.year, now.month, now.day, now.hour, now.minute)
+    global logfile
     logfile = open(logfilename, 'wa')
     content = 'score\tgenotype\traw_genotype\n'
-    global logfile
     logfile.write(content)
 #    return logfile
 
