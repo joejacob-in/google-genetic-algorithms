@@ -11,6 +11,7 @@ from launch_query import launch_query, print_fancy_results
 import random
 import re
 import time
+import datetime
 
 debug = False
 
@@ -25,6 +26,18 @@ ngenerations = 10
 
 
 notalpha_regex = re.compile('\W')
+
+def log():
+    """
+    write the results to a log file
+    """
+    now = datetime.datetime.now()
+    logfilename = 'results/log_%s_%s_%s_%s:%s.txt' % (now.year, now.month, now.day, now.hour, now.minute)
+    logfile = open(logfilename, 'wa')
+    content = 'score\tgenotype\traw_genotype\n'
+    global logfile
+    logfile.write(content)
+#    return logfile
 
 def eval_func(chromosome):
     """
@@ -58,6 +71,10 @@ def eval_func(chromosome):
             score = int(results['responseData']['cursor']['estimatedResultCount'])
     print score
 
+    # to be written in the log file
+    content = "%s\t%s\t%s\n" % (score, genotype, chromosome.genomeList)
+    logfile.write(content)
+
 #    print chromosome
 #    print score
     return score
@@ -67,6 +84,7 @@ def run():
     """
     run the pipeline
     """
+    log()
     genome = G1DList.G1DList(seq_length)
     genome.evaluator.set(eval_func)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
