@@ -33,9 +33,9 @@ def log():
     """
     now = datetime.datetime.now()
     logfilename = 'results/log_%s_%s_%s_%s:%s.txt' % (now.year, now.month, now.day, now.hour, now.minute)
+    global logfile
     logfile = open(logfilename, 'wa')
     content = 'score\tgenotype\traw_genotype\n'
-    global logfile
     logfile.write(content)
 #    return logfile
 
@@ -60,12 +60,16 @@ def eval_func(chromosome):
 ##    print results
 ##    print_fancy_results(results)
     if debug:
+	# if the debug option is on, use a simpler way to calculate the score
         score = len(re.findall('[\w ]', genotype))
     else:
         results = launch_query(genotype)
         time.sleep(2)
 
-        if not results['responseData']['cursor'].has_key('estimatedResultCount'):
+	if results is None:
+	    score = 0
+	    print 'no results'
+        elif not results['responseData']['cursor'].has_key('estimatedResultCount'):
             score = 0
         else:
             score = int(results['responseData']['cursor']['estimatedResultCount'])
