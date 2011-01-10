@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Pickle/Save generations data
+desc: To overcome the limit of 1000 queries per day, I need to run the script in different chunks. To do that, I need a way to pickle results
+type: :feature
+component: TO-DO
+release: 
+reporter: Giovanni DallOlio <dalloliogm@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2010-12-21 23:15:00.579222 Z
+references: []
+
+id: 0b1b6f826ca120455a9f5d6e5479666d1bb236ec
+log_events: 
+- - 2010-12-21 23:15:02.323171 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - created
+  - ""

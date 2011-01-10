@@ -12,6 +12,7 @@ import random
 import re
 import time
 import datetime
+import urllib2
 
 debug = False
 
@@ -60,11 +61,15 @@ def eval_func(chromosome):
 ##    print results
 ##    print_fancy_results(results)
     if debug:
+	# if the debug option is on, use a simpler way to calculate the score
         score = len(re.findall('[\w ]', genotype))
     else:
-        results = launch_query(genotype)
-        time.sleep(2)
-
+	try:
+	   results = launch_query(genotype)
+           time.sleep(2)
+        except urllib2.URLError:
+	   score = -100
+	   print 'no results'
         if not results['responseData']['cursor'].has_key('estimatedResultCount'):
             score = 0
         else:

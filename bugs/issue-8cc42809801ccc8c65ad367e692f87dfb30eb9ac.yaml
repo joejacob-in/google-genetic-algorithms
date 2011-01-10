@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: increase mutation rate
+desc: ""
+type: :task
+component: TO-DO
+release: 
+reporter: Giovanni DallOlio <dalloliogm@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2010-12-21 23:16:41.955707 Z
+references: []
+
+id: 8cc42809801ccc8c65ad367e692f87dfb30eb9ac
+log_events: 
+- - 2010-12-21 23:16:42.547121 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - created
+  - ""

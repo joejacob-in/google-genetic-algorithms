@@ -1,0 +1,14 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: google-genetic-algorithms
+version: "0.5"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: google-genetic-algorithms
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: TO-DO
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: bugs
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: theory
+releases: []
+

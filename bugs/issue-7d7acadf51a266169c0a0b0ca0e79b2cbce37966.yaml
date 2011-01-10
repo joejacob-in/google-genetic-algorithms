@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: use a single session for all queries
+desc: ""
+type: :task
+component: TO-DO
+release: 
+reporter: Giovanni DallOlio <dalloliogm@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2010-12-21 23:24:34.595206 Z
+references: []
+
+id: 7d7acadf51a266169c0a0b0ca0e79b2cbce37966
+log_events: 
+- - 2010-12-21 23:24:35.508067 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - created
+  - ""
