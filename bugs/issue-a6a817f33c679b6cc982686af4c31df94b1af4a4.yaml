@@ -5,8 +5,8 @@ type: :bugfix
 component: bugs
 release: 
 reporter: Giovanni DallOlio <dalloliogm@gmail.com>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2010-12-21 23:16:24.004355 Z
 references: []
 
@@ -16,3 +16,7 @@ log_events:
   - Giovanni DallOlio <dalloliogm@gmail.com>
   - created
   - ""
+- - 2011-01-31 17:56:31.876834 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - closed with disposition fixed
+  - Hope it got fixed forever
