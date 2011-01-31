@@ -28,7 +28,7 @@ ngenerations = 10
 
 notalpha_regex = re.compile('\W')
 
-def log():
+def start_logging():
     """
     write the results to a log file
     """
@@ -96,7 +96,7 @@ def run():
     global google_api_key
     google_api_key = get_key()
 
-    log()
+    start_logging()
     genome = G1DList.G1DList(seq_length)
     genome.evaluator.set(eval_func)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
