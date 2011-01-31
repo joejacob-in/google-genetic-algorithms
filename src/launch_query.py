@@ -56,6 +56,8 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.DEBUG)
     query = args.query
     print query
-    print_fancy_results(launch_query(query, 0))
-    print_fancy_results(launch_query(query, 4))
+    results1 = launch_query(query, 0)
+    print_fancy_results(results1)
+    results2 = launch_query(query, 4)
+    print_fancy_results(results2)
 
