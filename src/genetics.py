@@ -7,7 +7,7 @@ main pipeline for the Genetic Algorithm
 import pyevolve as pv
 from pyevolve import GSimpleGA
 from pyevolve import G1DList
-from launch_query import launch_query, print_fancy_results
+from launch_query import launch_query, print_fancy_results, get_key
 import random
 import re
 import time
@@ -52,6 +52,9 @@ def eval_func(chromosome):
     >>> import random
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)]
     """
+    # get Google Custom Search API key. TODO: move it outside of the function, otherwise this will be called for each chromosome
+    key = get_key()
+
 #    print "CHROMOSOME:", chromosome.genomeList, 
     print "CHROMOSOME:",
     genotype = [chr(x) for x in chromosome.genomeList]
@@ -61,19 +64,23 @@ def eval_func(chromosome):
 ##    print results
 ##    print_fancy_results(results)
     if debug:
-	# if the debug option is on, use a simpler way to calculate the score
+    # if the debug option is on, use a simpler way to calculate the score
         score = len(re.findall('[\w ]', genotype))
     else:
-	try:
-	   results = launch_query(genotype)
-           time.sleep(2)
+        try:
+            results = launch_query(genotype, key)
+            time.sleep(2)
         except urllib2.URLError:
-	   score = -100
-	   print 'no results'
-        if not results['responseData']['cursor'].has_key('estimatedResultCount'):
-            score = 0
-        else:
-            score = int(results['responseData']['cursor']['estimatedResultCount'])
+            score = -100
+            print 'no results'
+            return score # TODO: ugly to have a return here
+
+        score = results['queries']['request'][0]['totalResults']
+
+#        if not results['responseData']['cursor'].has_key('estimatedResultCount'):
+#            score = 0
+#        else:
+#            score = int(results['responseData']['cursor']['estimatedResultCount'])
     print score
 
     # to be written in the log file
