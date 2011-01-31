@@ -46,9 +46,12 @@ def launch_query(query, key):
 
 def print_fancy_results(response):
     term = TerminalController()
-    for result in response['responseData']['results']:
-        output = result['title'].replace("<b>", "${BOLD}").replace("</b>", "${NORMAL}")
-        print term.render("%s (%s)" % (output,result['url']))
+    logging.debug(response)
+    number_results = response['queries']['request'][0]['totalResults']
+    print term.render('${RED}Showing the first 10 results out of %s:${NORMAL}' % number_results)
+    for result in response['items']:
+        output = '- ${BLUE}' + result['title'] + '${NORMAL} (' + result['link'] + ')'
+        print term.render("%s" % output)
         
 
 
