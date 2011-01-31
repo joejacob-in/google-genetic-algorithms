@@ -21,9 +21,10 @@ def launch_query(query, start=0):
     It appears that you can't get more than 4 results at a time with the google ajax APIs.
     To get more results for a query, you must launch this function multiple times changing the 'start' parameters.
     """
-    baseurl = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s'
+    baseurl = 'https://www.googleapis.com/customsearch/v1?%s'
 #    parameters = {'q': query, 'start': start, 'key': key}
-    parameters = {'q': query, 'start': start}
+    # parameters needed: q, cx, key
+    parameters = {'q': query, 'start': start, 'key': key, 'cx': '017576662512468239146:omuauf_lfve'}
     queryurl = baseurl % urllib.urlencode(parameters)
     logging.debug(queryurl)
 
@@ -58,6 +59,6 @@ if __name__ == '__main__':
     print query
     results1 = launch_query(query, 0)
     print_fancy_results(results1)
-    results2 = launch_query(query, 4)
-    print_fancy_results(results2)
+#    results2 = launch_query(query, 4)
+#    print_fancy_results(results2)
 
