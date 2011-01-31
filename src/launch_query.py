@@ -10,11 +10,16 @@ import urllib2
 # Fancy output
 from TerminalColor import TerminalController    
 
-# read the google api key
-configfile = open('configfile.txt', 'r')
-key = configfile.read().strip()
+def get_key():
+    """
+    parse config file and get the google api key
+    """
+    # read the google api key
+    configfile = open('configfile.txt', 'r')
+    key = configfile.read().strip()
+    return key
 
-def launch_query(query, start=0):
+def launch_query(query, key):
     """
     Execute a query on google, getting exactly 4 results.
     
@@ -24,7 +29,8 @@ def launch_query(query, start=0):
     baseurl = 'https://www.googleapis.com/customsearch/v1?%s'
 #    parameters = {'q': query, 'start': start, 'key': key}
     # parameters needed: q, cx, key
-    parameters = {'q': query, 'start': start, 'key': key, 'cx': '017576662512468239146:omuauf_lfve'}
+#    parameters = {'q': query, 'start': start, 'key': key, 'cx': '017576662512468239146:omuauf_lfve'}
+    parameters = {'q': query, 'cx': '017576662512468239146:omuauf_lfve', 'key': key}
     queryurl = baseurl % urllib.urlencode(parameters)
     logging.debug(queryurl)
 
@@ -57,7 +63,9 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.DEBUG)
     query = args.query
     print query
-    results1 = launch_query(query, 0)
+
+    key = get_key()
+    results1 = launch_query(query, key)
     print_fancy_results(results1)
 #    results2 = launch_query(query, 4)
 #    print_fancy_results(results2)
