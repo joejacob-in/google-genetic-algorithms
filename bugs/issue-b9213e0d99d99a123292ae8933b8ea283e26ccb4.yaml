@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: reduce pop size to 100 or less
+desc: Reduce the population size to 100 or less
+type: :task
+component: TO-DO
+release: 
+reporter: Giovanni DallOlio <dalloliogm@gmail.com>
+status: :unstarted
+disposition: 
+creation_time: 2011-02-01 13:35:01.348772 Z
+references: []
+
+id: b9213e0d99d99a123292ae8933b8ea283e26ccb4
+log_events: 
+- - 2011-02-01 13:35:02.468668 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - created
+  - ""
