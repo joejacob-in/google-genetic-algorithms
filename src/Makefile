@@ -5,5 +5,8 @@ debug:
 	@echo "launching an example query for 'how to conquer the world'"
 	python launch_query.py --query "conquer world" -d
 
+genetics:
+	python genetics.py
+
 alternative_splicing:
 	python launch_query.py --query 'alternative splicing'
