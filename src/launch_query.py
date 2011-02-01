@@ -10,6 +10,16 @@ import urllib2
 # Fancy output
 from TerminalColor import TerminalController    
 
+class GoogleQueryLimitsExceeded(Exception):
+    """
+    I have a limit of 100 queries per day. This exception is raise when the limit has been reached.
+    """
+    def __init__(self):
+        pass
+    def __repr__(self):
+        return repr('Sorry, Google query limit exceeded')
+
+
 def get_key():
     """
     parse config file and get the google api key
@@ -35,7 +45,10 @@ def launch_query(query, key):
     logging.debug(queryurl)
 
     opener = urllib2.build_opener()
-    f = opener.open(queryurl)
+    try:
+        f = opener.open(queryurl)
+    except urllib2.URLError:    
+        raise GoogleQueryLimitsExceeded
 
     response = simplejson.load(f)
 #    print response

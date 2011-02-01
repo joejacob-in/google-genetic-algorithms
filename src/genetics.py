@@ -7,7 +7,7 @@ main pipeline for the Genetic Algorithm
 import pyevolve as pv
 from pyevolve import GSimpleGA
 from pyevolve import G1DList
-from launch_query import launch_query, print_fancy_results, get_key
+from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
 import re
 import time
@@ -15,6 +15,7 @@ import datetime
 import urllib2
 # Fancy output
 from TerminalColor import TerminalController    
+import sys
 
 debug = False
 
@@ -30,12 +31,6 @@ global term
 term = TerminalController()
 
 notalpha_regex = re.compile('\W')
-
-class GoogleQueryLimitsExceeded(Exception):
-    """
-    I have a limit of 100 queries per day. This exception is raise when the limit has been reached.
-    """
-    print 'Google query limit exceeded'
 
 def start_logging():
     """
@@ -59,7 +54,7 @@ def eval_func(chromosome):
 
     example input:
     >>> import random
-    >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)]
+    >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)] # TODO: finish the doctest
     """
 #    print "CHROMOSOME:", chromosome.genomeList, 
     print term.render("${BOLD}CHROMOSOME:${NORMAL}"),
@@ -76,11 +71,10 @@ def eval_func(chromosome):
         try:
             results = launch_query(genotype, google_api_key)
             time.sleep(1)
-        except urllib2.URLError:
-            raise GoogleQueryLimitsExceeded
+        except GoogleQueryLimitsExceeded:
             score = 0       # TODO: find a way to remove queries which return empty results
             print 'no results'
-            return score # TODO: ugly to have a return here
+            sys.exit(1) # TODO: it would be good to do something to pause the simulation here
 
         score = results['queries']['request'][0]['totalResults']
 
