@@ -31,6 +31,12 @@ term = TerminalController()
 
 notalpha_regex = re.compile('\W')
 
+class GoogleQueryLimitsExceeded(Exception):
+    """
+    I have a limit of 100 queries per day. This exception is raise when the limit has been reached.
+    """
+    print 'Google query limit exceeded'
+
 def start_logging():
     """
     write the results to a log file
@@ -71,7 +77,8 @@ def eval_func(chromosome):
             results = launch_query(genotype, google_api_key)
             time.sleep(1)
         except urllib2.URLError:
-            score = -100
+            raise GoogleQueryLimitsExceeded
+            score = 0       # TODO: find a way to remove queries which return empty results
             print 'no results'
             return score # TODO: ugly to have a return here
 
