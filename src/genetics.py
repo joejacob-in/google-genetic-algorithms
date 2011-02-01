@@ -13,6 +13,8 @@ import re
 import time
 import datetime
 import urllib2
+# Fancy output
+from TerminalColor import TerminalController    
 
 debug = False
 
@@ -24,7 +26,8 @@ rangemax = 255
 seq_length = 500
 ngenerations = 10
 
-
+global term
+term = TerminalController()
 
 notalpha_regex = re.compile('\W')
 
@@ -53,11 +56,11 @@ def eval_func(chromosome):
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)]
     """
 #    print "CHROMOSOME:", chromosome.genomeList, 
-    print "CHROMOSOME:",
+    print term.render("${BOLD}CHROMOSOME:${NORMAL}"),
     genotype = [chr(x) for x in chromosome.genomeList]
     genotype = ''.join(genotype)
     genotype = notalpha_regex.sub(' ', genotype)
-    print genotype,
+    print term.render(genotype),
 ##    print results
 ##    print_fancy_results(results)
     if debug:
@@ -66,7 +69,7 @@ def eval_func(chromosome):
     else:
         try:
             results = launch_query(genotype, google_api_key)
-            time.sleep(2)
+            time.sleep(1)
         except urllib2.URLError:
             score = -100
             print 'no results'
@@ -78,7 +81,7 @@ def eval_func(chromosome):
 #            score = 0
 #        else:
 #            score = int(results['responseData']['cursor']['estimatedResultCount'])
-    print score
+    print term.render("${RED}" + str(score) + "${NORMAL}")
 
     # to be written in the log file
     content = "%s\t%s\t%s\n" % (score, genotype, chromosome.genomeList)
