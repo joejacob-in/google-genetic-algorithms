@@ -16,3 +16,7 @@ log_events:
   - Giovanni DallOlio <dalloliogm@gmail.com>
   - created
   - ""
+- - 2011-02-02 15:13:54.376514 Z
+  - Giovanni DallOlio <dalloliogm@gmail.com>
+  - commented
+  - should use GSimpleGA.StepCallback.set() and pickles
