@@ -39,8 +39,7 @@ def launch_query(query, key):
     baseurl = 'https://www.googleapis.com/customsearch/v1?%s'
 #    parameters = {'q': query, 'start': start, 'key': key}
     # parameters needed: q, cx, key
-    parameters = {'q': query, 'cx': '017576662512468239146', 'key': key}
-#    parameters = {'q': query, 'cx': '017576662512468239146:omuauf_lfve', 'key': key}
+    parameters = {'q': query, 'cx': '017576662512468239146:omuauf_lfve', 'key': key}
     queryurl = baseurl % urllib.urlencode(parameters)
     logging.debug(queryurl)
 
