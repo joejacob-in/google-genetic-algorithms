@@ -9,7 +9,7 @@ genetics:
 	python genetics.py
 
 dopazo:
-	python launch_query.py --query "Natural selection on functional modules, a genome wide analysis" -d
+	python pubmed.py --query "Natural selection on functional modules, a genome wide analysis" -d
 
 alternative_splicing:
 	python launch_query.py --query 'alternative splicing'
