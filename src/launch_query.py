@@ -15,7 +15,7 @@ class GoogleQueryLimitsExceeded(Exception):
     I have a limit of 100 queries per day. This exception is raise when the limit has been reached.
     """
     def __init__(self):
-        pass
+        print '\nSorry, Google query limit exceeded\n'
     def __repr__(self):
         return repr('Sorry, Google query limit exceeded')
 
