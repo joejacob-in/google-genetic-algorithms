@@ -8,5 +8,8 @@ debug:
 genetics:
 	python genetics.py
 
+debug:
+	python launch_query.py -- --query "Natural selection on functional modules, a genome wide analysis" -d
+
 alternative_splicing:
 	python launch_query.py --query 'alternative splicing'
