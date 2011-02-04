@@ -73,7 +73,7 @@ def eval_func(chromosome):
             time.sleep(1)
         except GoogleQueryLimitsExceeded:
             score = 0       # TODO: find a way to remove queries which return empty results
-            print 'no results'
+            print 'no results, query limit exceeded'
             sys.exit(1) # TODO: it would be good to do something to pause the simulation here
 
         score = results['queries']['request'][0]['totalResults']
@@ -108,6 +108,7 @@ def run():
 #    print genome
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(ngenerations)
+    ga.setPopulationSize(10)
     ga.evolve(freq_stats=10)
     print ga.bestIndividual()
 
