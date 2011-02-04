@@ -6,6 +6,7 @@ example of how to use urllib2 and simplejson to query google
 import simplejson
 import urllib
 import urllib2
+import time
 
 baseurl = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s'
 
@@ -23,7 +24,7 @@ response = simplejson.load(f)
 
 for result in response['responseData']['results']:
     print result['title']
-
+time.sleep(5)
 
 if __name__ == '__main__':
     pass
