@@ -25,7 +25,7 @@ rangemax = 255
 
 # other parameters
 seq_length = 500
-ngenerations = 10
+ngenerations = 10 
 
 global term
 term = TerminalController()
@@ -43,6 +43,10 @@ def start_logging():
     content = 'score\tgenotype\traw_genotype\n'
     logfile.write(content)
 #    return logfile
+
+def pickle_generation():
+    print 'TODO: pickling '
+
 
 def eval_func(chromosome):
     """
@@ -108,6 +112,7 @@ def run():
 #    print genome
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(ngenerations)
+#    ga.StepCallback.set(pickle_generation)
     ga.evolve(freq_stats=10)
     print ga.bestIndividual()
 
