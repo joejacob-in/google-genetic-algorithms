@@ -1,3 +1,7 @@
+=========================================
+The Genetics of a Google Query Population
+=========================================
+
 This is a spare-time project of mine, an extension to an exercise I did back at
 the UNI.
 
@@ -9,7 +13,8 @@ I could not come out with a nice application of genetics algorithms, so I
 figured out to create a GA to get the google query with the highest number of
 results.
 
-It will work this way: 
+How does it work
+------------------
 
 * the GA will generate a number of random sequences of words, of the same length. These will correspond to the genome of different individuals. Example:
 
@@ -19,7 +24,7 @@ It will work this way:
 
     Ind3: jaj  nasod mnlas lw q  jj j jdsjai oocvo
 
-the GA program will evolve these series of letters by introducing random puntiform mutations (changing a single letter) and crossing overs. The fitness
+* the GA program will evolve these series of letters by introducing random puntiform mutations (changing a single letter) and crossing overs. The fitness
 of each individual will be the number of results it gets when called on google.
 This phase is equivalent to the primordial phase of the world, when molecules of
 RNA started appearing giving birth to different forms of organisms.
