@@ -1,5 +1,10 @@
+=========================================
 The Genetics of a Google Query Population
 =========================================
+
+
+The Genetics of a Google Query Population
+------------------------------------------
 
 This is a spare-time project of mine, an extension to an exercise I did back at
 the UNI.
