@@ -4,9 +4,9 @@ main pipeline for the Genetic Algorithm
 """
 
 
-import pyevolve as pv
+import pyevolve
 from pyevolve import GSimpleGA
-from pyevolve import G1DList, G2DList
+from pyevolve.G2DList import G2DList
 from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
 import re
@@ -58,6 +58,11 @@ def pickle_generation():
 #    genotype = notalpha_regex.sub(' ', genotype)
 #    print term.render(genotype),
 
+
+class GoogleQueryGenome(pyevolve.G2DList.G2DList):
+    """
+    diploid genome, each chromosome is a string.
+    """
 
 def count_results_by_query(chromosome, debug=True):
     """
@@ -121,7 +126,7 @@ def run():
     google_api_key = get_key()
 
     start_logging()
-    genome = G2DList.G2DList(2, seq_length)
+    genome = GoogleQueryGenome(2, seq_length)
 #    print genome
     genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
