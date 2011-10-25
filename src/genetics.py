@@ -6,7 +6,7 @@ main pipeline for the Genetic Algorithm
 
 import pyevolve as pv
 from pyevolve import GSimpleGA
-from pyevolve import G1DList
+from pyevolve import G1DList, G2DList
 from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
 import re
@@ -24,8 +24,9 @@ rangemin = 0
 rangemax = 255
 
 # other parameters
-seq_length = 500
-ngenerations = 10 
+#seq_length = 500
+seq_length = 50
+ngenerations = 10
 
 global term
 term = TerminalController()
@@ -60,6 +61,8 @@ def pickle_generation():
 
 def count_results_by_query(chromosome, debug=True):
     """
+    """
+    """
     Evaluate the score of a chromosome by:
     - transforming it to a string
     - calling a google query
@@ -71,16 +74,19 @@ def count_results_by_query(chromosome, debug=True):
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)] # TODO: finish the doctest
     """
 #    print "CHROMOSOME:", chromosome.genomeList, 
-    print term.render("${BOLD}CHROMOSOME:${NORMAL}"),
-    genotype = [chr(x) for x in chromosome.genomeList]
-    genotype = ''.join(genotype)
-    genotype = notalpha_regex.sub(' ', genotype)
-    print term.render(genotype),
+    genotypes = ([chr(x) for x in chromosome.genomeList[0]], [chr(x) for x in chromosome.genomeList[1]])
+    genotypes = [''.join(genotype) for genotype in genotypes]
+    genotypes = [notalpha_regex.sub(' ', genotype) for genotype in genotypes]
+    print term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
+    print term.render(genotypes[0])
+    print term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
+    print term.render(genotypes[1])
 ##    print results
 ##    print_fancy_results(results)
     if debug:
     # if the debug option is on, use a simpler way to calculate the score
-        score = len(re.findall('[\w ]', genotype))
+        score = sum(1./len(re.findall('[\w]*', genotype)) for genotype in genotypes)
+#        time.sleep(1)
     else:
         try:
             results = launch_query(genotype, google_api_key)
@@ -115,7 +121,8 @@ def run():
     google_api_key = get_key()
 
     start_logging()
-    genome = G1DList.G1DList(seq_length)
+    genome = G2DList.G2DList(2, seq_length)
+#    print genome
     genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
