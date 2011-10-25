@@ -28,12 +28,15 @@ def launch_query_ajax(query, start=0):
 	f = opener.open(queryurl)
 
 	response = simplejson.load(f)
-	#print response
+	logging.debug(response)
+	results_count = response['responseData']['cursor']['estimatedResultCount']
+	print 'showing 4 results of', results_count
 
 	for result in response['responseData']['results']:
 	    print result['title']
 	logging.debug(result)
 	time.sleep(1)
+	return response
 
 
 if __name__ == '__main__':
@@ -47,7 +50,7 @@ if __name__ == '__main__':
     query = args.query
     print query
 
-    results1 = launch_query_ajax(query, start=0)
+    response = launch_query_ajax(query, start=0)
 #    print_fancy_results(results1)
 
 

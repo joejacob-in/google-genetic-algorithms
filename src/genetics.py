@@ -83,9 +83,6 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
         return (rep)
         
         
-
-        
-
 def count_results_by_query(chromosome, debug=True):
     """
     """
@@ -109,7 +106,7 @@ def count_results_by_query(chromosome, debug=True):
     if debug:
     # if the debug option is on, use a simpler way to calculate the score
         score = sum(1./len(re.findall('[\w]*', genotype)) for genotype in genotypes)
-#        time.sleep(1)
+        time.sleep(1)
     else:
         try:
             results = launch_query(genotype, google_api_key)
@@ -152,6 +149,7 @@ def run():
 #    print genome
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(ngenerations)
+    ga.setMultiProcessing()
 #    ga.StepCallback.set(pickle_generation)
     ga.evolve(freq_stats=10)
     print "*"*5 + "best individual:"
