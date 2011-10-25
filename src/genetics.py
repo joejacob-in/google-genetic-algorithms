@@ -5,7 +5,7 @@ main pipeline for the Genetic Algorithm
 
 
 import pyevolve
-from pyevolve import GSimpleGA
+from pyevolve import GSimpleGA, GenomeBase, Consts
 from pyevolve.G2DList import G2DList
 from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
@@ -48,21 +48,26 @@ def start_logging():
 def pickle_generation():
     print 'TODO: pickling '
 
-#def count_results_fake(chromosome):
-#    """
-#    fake eval function for testing purposes
-#    """
-#    print term.render("${BOLD}CHROMOSOME:${NORMAL}"),
-#    genotype = [chr(x) for x in chromosome.genomeList]
-#    genotype = ''.join(genotype)
-#    genotype = notalpha_regex.sub(' ', genotype)
-#    print term.render(genotype),
-
 
 class GoogleQueryGenome(pyevolve.G2DList.G2DList):
     """
     diploid genome, each chromosome is a string.
     """
+    evaluator = None
+    initializator = None
+    mutator = None
+    crossover = None
+
+    def __init__(self, seqlength, cloning=False):
+       """
+       """
+       pyevolve.G2DList.G2DList.__init__(self, 2, seqlength)
+       self.genomeList = [[None]*seqlength, [None]*seqlength]
+
+       if not cloning:
+         self.initializator.set(Consts.CDefG2DListInit)
+         self.mutator.set(Consts.CDefG2DListMutator)
+         self.crossover.set(Consts.CDefG2DListCrossover)
 
 def count_results_by_query(chromosome, debug=True):
     """
@@ -126,7 +131,7 @@ def run():
     google_api_key = get_key()
 
     start_logging()
-    genome = GoogleQueryGenome(2, seq_length)
+    genome = GoogleQueryGenome(seq_length)
 #    print genome
     genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
