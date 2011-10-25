@@ -5,7 +5,7 @@ main pipeline for the Genetic Algorithm
 
 
 import pyevolve
-from pyevolve import GSimpleGA, GenomeBase, Consts
+from pyevolve import GSimpleGA, GenomeBase, Consts, DBAdapters
 from pyevolve.G2DList import G2DList
 from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
@@ -106,7 +106,7 @@ def count_results_by_query(chromosome, debug=True):
     if debug:
     # if the debug option is on, use a simpler way to calculate the score
         score = sum(1./len(re.findall('[\w]*', genotype)) for genotype in genotypes)
-        time.sleep(1)
+#        time.sleep(1)
     else:
         try:
             results = launch_query(genotype, google_api_key)
@@ -146,10 +146,11 @@ def run():
     genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
-#    print genome
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(ngenerations)
-    ga.setMultiProcessing()
+#    ga.setMultiProcessing()
+    csv_adapter = DBAdapters.DBFileCSV(identify="testrun", filename='results/testrun.csv')
+    ga.setDBAdapter(csv_adapter)
 #    ga.StepCallback.set(pickle_generation)
     ga.evolve(freq_stats=10)
     print "*"*5 + "best individual:"
