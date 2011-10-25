@@ -65,9 +65,26 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
        self.genomeList = [[None]*seqlength, [None]*seqlength]
 
        if not cloning:
-         self.initializator.set(Consts.CDefG2DListInit)
-         self.mutator.set(Consts.CDefG2DListMutator)
-         self.crossover.set(Consts.CDefG2DListCrossover)
+           self.initializator.set(Consts.CDefG2DListInit)
+           self.mutator.set(Consts.CDefG2DListMutator)
+           self.crossover.set(Consts.CDefG2DListCrossover)
+
+    def __repr__(self):
+        """
+        """
+        rep = "CHROMOSOME1:"
+        rep += str(self.genomeList[0])
+        rep += "CHROMOSOME2:"
+        rep += str(self.genomeList[1])
+#        rep = term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
+#        rep += term.render(self.genomeList[0])
+#        rep += term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
+#        rep += term.render(self.genomeList[1])
+        return (rep)
+        
+        
+
+        
 
 def count_results_by_query(chromosome, debug=True):
     """
@@ -87,11 +104,7 @@ def count_results_by_query(chromosome, debug=True):
     genotypes = ([chr(x) for x in chromosome.genomeList[0]], [chr(x) for x in chromosome.genomeList[1]])
     genotypes = [''.join(genotype) for genotype in genotypes]
     genotypes = [notalpha_regex.sub(' ', genotype) for genotype in genotypes]
-    print term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
-    print term.render(genotypes[0])
-    print term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
-    print term.render(genotypes[1])
-##    print results
+
 ##    print_fancy_results(results)
     if debug:
     # if the debug option is on, use a simpler way to calculate the score
@@ -132,7 +145,7 @@ def run():
 
     start_logging()
     genome = GoogleQueryGenome(seq_length)
-#    print genome
+    print genome
     genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
