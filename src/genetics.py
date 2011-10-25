@@ -17,7 +17,7 @@ import urllib2
 from TerminalColor import TerminalController    
 import sys
 
-debug = False
+debug = True
 
 # define lower and upper limits for Ascii chars. Extreme values are 0, 255
 rangemin = 0
@@ -47,8 +47,18 @@ def start_logging():
 def pickle_generation():
     print 'TODO: pickling '
 
+#def count_results_fake(chromosome):
+#    """
+#    fake eval function for testing purposes
+#    """
+#    print term.render("${BOLD}CHROMOSOME:${NORMAL}"),
+#    genotype = [chr(x) for x in chromosome.genomeList]
+#    genotype = ''.join(genotype)
+#    genotype = notalpha_regex.sub(' ', genotype)
+#    print term.render(genotype),
 
-def eval_func(chromosome):
+
+def count_results_by_query(chromosome, debug=True):
     """
     Evaluate the score of a chromosome by:
     - transforming it to a string
@@ -106,7 +116,7 @@ def run():
 
     start_logging()
     genome = G1DList.G1DList(seq_length)
-    genome.evaluator.set(eval_func)
+    genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
 #    print genome
@@ -114,6 +124,7 @@ def run():
     ga.setGenerations(ngenerations)
 #    ga.StepCallback.set(pickle_generation)
     ga.evolve(freq_stats=10)
+    print "*"*5 + "best individual:"
     print ga.bestIndividual()
 
 
@@ -126,7 +137,7 @@ def test_evalWithRandomValues(seed):
     random.seed(seed)
     chromosome = [chr(random.randrange(ascii_start, ascii_stop)) for x in xrange(seq_length)]
 #    print chromosome
-    res = eval_func(chromosome)
+    res = count_results_by_query(chromosome)
     return res
 
 def test_noresults():
@@ -139,7 +150,7 @@ def test_somesults():
 
 def test_normalresults():
     chromosome = "alternative splicing"
-    results = eval_func([x for x in chromosome])
+    results = count_results_by_query([x for x in chromosome])
     return results
 
 if __name__ == '__main__':
