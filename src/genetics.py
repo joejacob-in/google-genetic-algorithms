@@ -48,40 +48,6 @@ def start_logging():
 def pickle_generation():
     print 'TODO: pickling '
 
-
-class GoogleQueryGenome(pyevolve.G2DList.G2DList):
-    """
-    diploid genome, each chromosome is a string.
-    """
-    evaluator = None
-    initializator = None
-    mutator = None
-    crossover = None
-
-    def __init__(self, seqlength, cloning=False):
-       """
-       """
-       pyevolve.G2DList.G2DList.__init__(self, 2, seqlength)
-       self.genomeList = [[None]*seqlength, [None]*seqlength]
-
-       if not cloning:
-           self.initializator.set(Consts.CDefG2DListInit)
-           self.mutator.set(Consts.CDefG2DListMutator)
-           self.crossover.set(Consts.CDefG2DListCrossover)
-
-    def __repr__(self):
-        """
-        """
-        rep = "CHROMOSOME1:"
-        rep += str(self.genomeList[0])
-        rep += "CHROMOSOME2:"
-        rep += str(self.genomeList[1])
-#        rep = term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
-#        rep += term.render(self.genomeList[0])
-#        rep += term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
-#        rep += term.render(self.genomeList[1])
-        return (rep)
-        
         
 def count_results_by_query(chromosome, debug=True):
     """
@@ -133,6 +99,40 @@ def count_results_by_query(chromosome, debug=True):
     return score
 
 
+class GoogleQueryGenome(pyevolve.G2DList.G2DList):
+    """
+    diploid genome, each chromosome is a string.
+    """
+    evaluator = count_results_by_query
+    initializator = None
+    mutator = None
+    crossover = None
+
+    def __init__(self, seqlength, cloning=False):
+       """
+       """
+       pyevolve.G2DList.G2DList.__init__(self, 2, seqlength)
+       self.genomeList = [[None]*seqlength, [None]*seqlength]
+
+       if not cloning:
+           self.initializator.set(Consts.CDefG2DListInit)
+           self.mutator.set(Consts.CDefG2DListMutator)
+           self.crossover.set(Consts.CDefG2DListCrossover)
+
+    def __repr__(self):
+        """
+        """
+        rep = "CHROMOSOME1:"
+        rep += str(self.genomeList[0])
+        rep += "CHROMOSOME2:"
+        rep += str(self.genomeList[1])
+#        rep = term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
+#        rep += term.render(self.genomeList[0])
+#        rep += term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
+#        rep += term.render(self.genomeList[1])
+        return (rep)
+        
+
 def run():
     """
     run the pipeline
@@ -143,7 +143,7 @@ def run():
     start_logging()
     genome = GoogleQueryGenome(seq_length)
     print genome
-    genome.evaluator.set(count_results_by_query)
+#    genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
     ga = GSimpleGA.GSimpleGA(genome)
