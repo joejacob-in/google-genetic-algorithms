@@ -63,7 +63,7 @@ def count_results_by_query(chromosome, debug=True):
     >>> import random
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)] # TODO: finish the doctest
     """
-#    print "CHROMOSOME:", chromosome.genomeList, 
+    print "CHROMOSOME:", chromosome.genomeList, 
     genotypes = ([chr(x) for x in chromosome.genomeList[0]], [chr(x) for x in chromosome.genomeList[1]])
     genotypes = [''.join(genotype) for genotype in genotypes]
     genotypes = [notalpha_regex.sub(' ', genotype) for genotype in genotypes]
@@ -98,6 +98,16 @@ def count_results_by_query(chromosome, debug=True):
 #    print score
     return score
 
+class GoogleQueryChromosome(list):
+    """
+    a list-like object that represents a Google Query
+    """
+    def __str__(self):
+        """
+        """
+        rep = "Chromosome: "
+        rep += ' '.join(list.__repr__(self))
+        return rep
 
 class GoogleQueryGenome(pyevolve.G2DList.G2DList):
     """
@@ -112,14 +122,14 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
        """
        """
        pyevolve.G2DList.G2DList.__init__(self, 2, seqlength)
-       self.genomeList = [[None]*seqlength, [None]*seqlength]
+       self.genomeList = [GoogleQueryChromosome([None])*seqlength, GoogleQueryChromosome([None])*seqlength]
 
        if not cloning:
            self.initializator.set(Consts.CDefG2DListInit)
            self.mutator.set(Consts.CDefG2DListMutator)
            self.crossover.set(Consts.CDefG2DListCrossover)
 
-    def __repr__(self):
+    def __str__(self):
         """
         """
         rep = "CHROMOSOME1:"
