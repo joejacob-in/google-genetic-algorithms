@@ -103,7 +103,7 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
     """
     diploid genome, each chromosome is a string.
     """
-    evaluator = count_results_by_query
+    evaluator = None
     initializator = None
     mutator = None
     crossover = None
@@ -143,7 +143,7 @@ def run():
     start_logging()
     genome = GoogleQueryGenome(seq_length)
     print genome
-#    genome.evaluator.set(count_results_by_query)
+    genome.evaluator.set(count_results_by_query)
     genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
     ga = GSimpleGA.GSimpleGA(genome)
