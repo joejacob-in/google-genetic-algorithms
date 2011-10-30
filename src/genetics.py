@@ -123,11 +123,23 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
        pyevolve.GenomeBase.GenomeBase.__init__(self)
        self.seqlength = seqlength
        self.genomeList = [GoogleQueryChromosome([None])*seqlength, GoogleQueryChromosome([None])*seqlength]
-
+#
        if not cloning:
-           self.initializator.set(Consts.CDefG2DListInit)
-           self.mutator.set(Consts.CDefG2DListMutator)
-           self.crossover.set(Consts.CDefG2DListCrossover)
+           self.initializator.set(googleQueryInitializer)
+#           self.mutator.set(Consts.CDefG2DListMutator)
+#           self.crossover.set(Consts.CDefG2DListCrossover)
+
+    def clearList(self):
+       self.genomeList = [GoogleQueryChromosome([None])*self.seqlength, GoogleQueryChromosome([None])*self.seqlength]
+
+    def getHeight(self):
+        return 2
+
+    def getWidth(self):
+        return self.seqlength
+
+    def setItem(self, x, y, value):
+        self.genomeList[x][y] = value
 
     def __str__(self):
         """
@@ -142,6 +154,13 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
 #        rep += term.render(self.genomeList[1])
         return (rep)
         
+def googleQueryInitializer(genome, **args):
+    """
+    initialize google query genome
+    """
+    chr1 = [random.randint(0, 255) for n in xrange(genome.seqlength)]
+    chr2 = [random.randint(0, 255) for n in xrange(genome.seqlength)]
+    genome.genomeList = [chr1, chr2]
 
 def run():
     """
