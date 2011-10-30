@@ -6,7 +6,6 @@ main pipeline for the Genetic Algorithm
 
 import pyevolve
 from pyevolve import GSimpleGA, GenomeBase, Consts, DBAdapters
-from pyevolve.G2DList import G2DList
 from launch_query import launch_query, print_fancy_results, get_key, GoogleQueryLimitsExceeded
 import random
 import re
@@ -109,7 +108,7 @@ class GoogleQueryChromosome(list):
         rep += ' '.join(list.__repr__(self))
         return rep
 
-class GoogleQueryGenome(pyevolve.G2DList.G2DList):
+class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
     """
     diploid genome, each chromosome is a string.
     """
@@ -121,7 +120,8 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
     def __init__(self, seqlength, cloning=False):
        """
        """
-       pyevolve.G2DList.G2DList.__init__(self, 2, seqlength)
+       pyevolve.GenomeBase.GenomeBase.__init__(self)
+       self.seqlength = seqlength
        self.genomeList = [GoogleQueryChromosome([None])*seqlength, GoogleQueryChromosome([None])*seqlength]
 
        if not cloning:
@@ -132,9 +132,9 @@ class GoogleQueryGenome(pyevolve.G2DList.G2DList):
     def __str__(self):
         """
         """
-        rep = "CHROMOSOME1:"
+        rep = "CHROMOSOME1: "
         rep += str(self.genomeList[0])
-        rep += "CHROMOSOME2:"
+        rep += "CHROMOSOME2: "
         rep += str(self.genomeList[1])
 #        rep = term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
 #        rep += term.render(self.genomeList[0])
@@ -154,7 +154,7 @@ def run():
     genome = GoogleQueryGenome(seq_length)
     print genome
     genome.evaluator.set(count_results_by_query)
-    genome.setParams(rangemin=rangemin, rangemax=rangemax)
+#    genome.setParams(rangemin=rangemin, rangemax=rangemax)
     genome.initialize()
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(ngenerations)
