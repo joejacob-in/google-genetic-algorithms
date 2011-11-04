@@ -2,7 +2,7 @@
 """
 """
 import pyevolve
-from pyevolve import Consts
+from pyevolve import Consts, Util
 import random
 
 
@@ -35,7 +35,7 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
 #
        if not cloning:
            self.initializator.set(googleQueryInitializer)
-#           self.mutator.set(Consts.CDefG2DListMutator)
+           self.mutator.set(googleQueryMutator)
 #           self.crossover.set(Consts.CDefG2DListCrossover)
 
     def clearList(self):
@@ -48,7 +48,7 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
         return self.getParam("seqlength")
 
     def getSize(self):
-        return self.getParam("seqlength")
+        return (2, self.getParam("seqlength"))
 
     def setItem(self, x, y, value):
         self.genomeList[x][y] = value
@@ -71,6 +71,34 @@ def googleQueryInitializer(genome, **args):
     genome.genomeList = [chr1, chr2]
 
 
+def googleQueryMutator(genome, **args):
+   """ The mutator of G1DList, Swap Mutator
+   
+   .. note:: this mutator is :term:`Data Type Independent`
+
+   """
+   
+   if args["pmut"] <= 0.0: return 0
+   height, width = genome.getSize()
+   elements = height * width
+
+   mutations = args["pmut"] * elements
+
+   if mutations < 1.0:
+      mutations = 0
+      for i in xrange(height):
+         for j in xrange(width):
+            if Util.randomFlipCoin(args["pmut"]):
+               index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
+               Util.list2DSwapElement(genome.genomeList, (i,j), index_b)
+               mutations+=1
+   else:
+      for it in xrange(int(round(mutations))):
+         index_a = (rand_randint(0, height-1), rand_randint(0, width-1))
+         index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
+         Util.list2DSwapElement(genome.genomeList, index_a, index_b)
+
+   return int(mutations)
 
 def test():
     pass
