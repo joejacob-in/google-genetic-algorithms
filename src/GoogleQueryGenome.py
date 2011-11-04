@@ -35,8 +35,8 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
 #
        if not cloning:
            self.initializator.set(googleQueryInitializer)
-           self.mutator.set(Consts.CDefG2DListMutator)
-           self.crossover.set(Consts.CDefG2DListCrossover)
+#           self.mutator.set(Consts.CDefG2DListMutator)
+#           self.crossover.set(Consts.CDefG2DListCrossover)
 
     def clearList(self):
        self.genomeList = [GoogleQueryChromosome([None])*self.seqlength, GoogleQueryChromosome([None])*self.seqlength]
@@ -45,7 +45,10 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
         return 2
 
     def getWidth(self):
-        return self.seqlength
+        return self.getParam("seqlength")
+
+    def getSize(self):
+        return self.getParam("seqlength")
 
     def setItem(self, x, y, value):
         self.genomeList[x][y] = value
@@ -66,7 +69,6 @@ def googleQueryInitializer(genome, **args):
     chr1 = [chr(random.randint(0, 255)) for n in xrange(genome.getParam("seqlength"))]
     chr2 = [chr(random.randint(0, 255)) for n in xrange(genome.getParam("seqlength"))]
     genome.genomeList = [chr1, chr2]
-
 
 
 
