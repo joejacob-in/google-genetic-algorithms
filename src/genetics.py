@@ -65,7 +65,7 @@ def count_results_by_query(chromosome, debug=True):
     >>> chromosome = [chr(random.randrange(50,150)) for x in xrange(50)] # TODO: finish the doctest
     """
     print "CHROMOSOME:", chromosome.genomeList, 
-    genotypes = ([chr(x) for x in chromosome.genomeList[0]], [chr(x) for x in chromosome.genomeList[1]])
+    genotypes = ([x for x in chromosome.genomeList[0]], [x for x in chromosome.genomeList[1]])
     genotypes = [''.join(genotype) for genotype in genotypes]
     genotypes = [notalpha_regex.sub(' ', genotype) for genotype in genotypes]
 

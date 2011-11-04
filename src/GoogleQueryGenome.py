@@ -63,8 +63,8 @@ def googleQueryInitializer(genome, **args):
     """
     initialize google query genome
     """
-    chr1 = [random.randint(0, 255) for n in xrange(genome.getParam("seqlength"))]
-    chr2 = [random.randint(0, 255) for n in xrange(genome.getParam("seqlength"))]
+    chr1 = [chr(random.randint(0, 255)) for n in xrange(genome.getParam("seqlength"))]
+    chr2 = [chr(random.randint(0, 255)) for n in xrange(genome.getParam("seqlength"))]
     genome.genomeList = [chr1, chr2]
 
 
