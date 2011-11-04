@@ -30,7 +30,7 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
        """
        """
        pyevolve.GenomeBase.GenomeBase.__init__(self)
-       self.seqlength = seqlength
+       self.setParams(seqlength = seqlength)
        self.genomeList = [GoogleQueryChromosome([None])*seqlength, GoogleQueryChromosome([None])*seqlength]
 #
        if not cloning:
@@ -63,8 +63,8 @@ def googleQueryInitializer(genome, **args):
     """
     initialize google query genome
     """
-    chr1 = [random.randint(0, 255) for n in xrange(genome.seqlength)]
-    chr2 = [random.randint(0, 255) for n in xrange(genome.seqlength)]
+    chr1 = [random.randint(0, 255) for n in xrange(genome.getParam("seqlength"))]
+    chr2 = [random.randint(0, 255) for n in xrange(genome.getParam("seqlength"))]
     genome.genomeList = [chr1, chr2]
 
 
