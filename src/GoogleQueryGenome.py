@@ -2,6 +2,8 @@
 """
 """
 import pyevolve
+from pyevolve import Consts
+import random
 
 
 class GoogleQueryChromosome(list):
@@ -33,8 +35,8 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
 #
        if not cloning:
            self.initializator.set(googleQueryInitializer)
-#           self.mutator.set(Consts.CDefG2DListMutator)
-#           self.crossover.set(Consts.CDefG2DListCrossover)
+           self.mutator.set(Consts.CDefG2DListMutator)
+           self.crossover.set(Consts.CDefG2DListCrossover)
 
     def clearList(self):
        self.genomeList = [GoogleQueryChromosome([None])*self.seqlength, GoogleQueryChromosome([None])*self.seqlength]
@@ -55,10 +57,6 @@ class GoogleQueryGenome(pyevolve.GenomeBase.GenomeBase):
         rep += str(self.genomeList[0])
         rep += "CHROMOSOME2: "
         rep += str(self.genomeList[1])
-#        rep = term.render("${BOLD}CHROMOSOME1:${NORMAL}"),
-#        rep += term.render(self.genomeList[0])
-#        rep += term.render("${BOLD}CHROMOSOME2:${NORMAL}"),
-#        rep += term.render(self.genomeList[1])
         return (rep)
         
 def googleQueryInitializer(genome, **args):
@@ -72,7 +70,8 @@ def googleQueryInitializer(genome, **args):
 
 
 
-
+def test():
+    pass
 
 
 
